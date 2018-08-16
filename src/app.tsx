@@ -5,7 +5,6 @@ import { mainContainerStore } from './features/components/stores/main-container-
 import { configStore } from './features/config';
 import { contextMenuStore } from './features/navigation/stores/context-menu-store';
 import { drawerMenuStore } from './features/navigation/stores/drawer-menu-store';
-import { mainContainerStore } from './features/navigation/stores/main-container-store';
 import { topNavStore } from './features/navigation/stores/top-nav-store';
 import Login from './features/security/components/login';
 import { authStore } from './features/security/stores/auth-store';
