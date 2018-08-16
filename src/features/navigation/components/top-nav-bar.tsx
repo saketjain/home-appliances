@@ -14,6 +14,7 @@ import { DrawerMenuStore } from '../stores/drawer-menu-store';
 import { TopNavStore } from '../stores/top-nav-store';
 import { ContextMenu } from './context-menu';
 import DrawerMenu from './drawer-menu';
+import MainContainer from './main-container';
 
 const styles: StyleRulesCallback = theme => createStyles({
   center: {
