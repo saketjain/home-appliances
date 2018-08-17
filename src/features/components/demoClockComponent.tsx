@@ -1,15 +1,33 @@
-import Button from "@material-ui/core/Button";
-import MobileStepper from "@material-ui/core/MobileStepper";
+import IconButton from "@material-ui/core/IconButton";
 import withStyles, { StyleRulesCallback } from "@material-ui/core/styles/withStyles";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import Typography from "@material-ui/core/Typography";
+// import FastForwrd from "@material-ui/icons/FastForward";
+// import FastRewind from "@material-ui/icons/FastRewind";
+import PauseCircleFilled from "@material-ui/icons/PauseCircleFilled";
+import PlayCircleFilled from "@material-ui/icons/PlayCircleFilled";
+import Stop from "@material-ui/icons/Stop";
+import Slider from "@material-ui/lab/Slider";
 import { inject, observer } from "mobx-react";
+import * as Moment from "moment";
+
 import * as React from "react";
 
 const styles: StyleRulesCallback<"root"> = theme => ({
+    button: {
+        margin: theme.spacing.unit
+    },
+    clockWidth: {
+        width: '90%'
+    },
+    pullRight: {
+        float: 'right'
+    },
     root: {
         flexGrow: 1,
-        maxWidth: 600,
+        maxWidth: 550,
+    },
+    typography: {
+
     }
 });
 
@@ -17,32 +35,62 @@ const styles: StyleRulesCallback<"root"> = theme => ({
 @observer
 class DemoClockComponent extends React.Component<any> {
     public render() {
-        const { currentClockRate, decreaseClockRate, increaseclockRate } = this.props.mainContainerStore;
+        const { 
+            classes, 
+            mainContainerStore: {
+                handleClockRateChange,
+                currentClockRate, 
+                CurrentClockRateAlias,
+                currentTimeStamp, 
+                handleStartHourChange,
+                handlePauseClick,
+                handlePlayClick,
+                handleStopClick,
+                startHour,
+                timerPaused 
+            } }= this.props;
+            
+        return <div>
+            <Typography variant="subheading" gutterBottom={true} align="left">
+              Simulation clock:
+            </Typography>
 
-        return(
-            <div>
-                <p>Demo clock</p>
-                <MobileStepper
-                    variant="progress"
-                    steps={4}
-                    position="static"
-                    activeStep={currentClockRate}
-                    className={this.props.classes.root}
-                    nextButton={
-                    <Button size="small" onClick={increaseclockRate}>
-                        +
-                        <KeyboardArrowRight />
-                    </Button>
-                    }
-                    backButton={
-                        <Button size="small" onClick={decreaseClockRate}>
-                        <KeyboardArrowLeft />
-                        -
-                    </Button>
-                    }
-                />
+            <Typography variant="caption" gutterBottom={true} align="center">
+              Current clock rate: {CurrentClockRateAlias}
+            </Typography>
+
+            <div className={classes.clockWidth}>
+              <Slider value={currentClockRate} aria-labelledby="Clock rate change" onChange={handleClockRateChange} step={1} min={0} max={4} />
             </div>
-        );
+
+            {!currentTimeStamp ? <Typography variant="caption" gutterBottom={true} align="center">
+                Start simulation from: {startHour
+                  .toString()
+                  .padStart(2, 0)}
+                :00:00
+              </Typography> : <Typography variant="caption" gutterBottom={true} align="center">
+                Simulation started at: {currentTimeStamp.format("HH:mm:ss")}
+              </Typography>}
+
+            <div className={classes.clockWidth}>
+              <Slider value={startHour} aria-labelledby="label" onChange={handleStartHourChange} min={0} max={24} step={1} />
+            </div>
+
+            <div style={{ textAlign: "center" }}>
+
+              <IconButton color="primary" className={classes.button} disabled={!timerPaused && !currentTimeStamp} onClick={handlePauseClick} aria-label="Pause the clock">
+                <PauseCircleFilled />
+              </IconButton>
+
+              <IconButton color="primary" className={classes.button} disabled={currentTimeStamp} onClick={handlePlayClick} aria-label="Play the clock">
+                <PlayCircleFilled />
+              </IconButton>
+              
+              <IconButton color="primary" className={classes.button} disabled={!currentTimeStamp} onClick={handleStopClick} aria-label="Play the clock">
+                <Stop />
+              </IconButton>
+            </div>
+          </div>;
     }
 }
 

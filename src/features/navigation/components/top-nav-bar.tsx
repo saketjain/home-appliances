@@ -22,10 +22,6 @@ const styles: StyleRulesCallback = theme => createStyles({
   flex: {
     flex: 1
   },
-  layout: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
   root: {
     flexGrow: 1
   }
@@ -58,7 +54,7 @@ class TopNavBar extends React.Component<ITopNavBarProps, ITopNavBarState> {
           <Toolbar>
             {showBackButtton ? this.renderBackButton() : this.renderLeftMenuButton()}
             <Typography variant="title" color="inherit" className={classes.flex}>
-              Portfolio
+              Simulation app
             </Typography>
             <ContextMenu />
           </Toolbar>

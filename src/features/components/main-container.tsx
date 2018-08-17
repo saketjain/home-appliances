@@ -1,8 +1,6 @@
+import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import withStyles, {
-  StyleRulesCallback
-} from "@material-ui/core/styles/withStyles";
+import withStyles, { StyleRulesCallback } from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import { observer } from "mobx-react";
 import * as React from "react";
@@ -10,31 +8,38 @@ import DemoClockComponent from "./demoClockComponent";
 import HouseInputComponent from "./houseInputComponent";
 import SunlightComponent from "./sunlightComponent";
 
-const styles: StyleRulesCallback<"paper"> = theme => ({
-  paper: {
-    padding: "30px"
+const styles: StyleRulesCallback<"typography"> = theme => ({
+  center: {
+    margin: '0 auto'
+  },
+  divider: {
+    margin: '20px 0'
+  },
+  typography: {
+    margin: "20px 0"
   }
 });
 
 @observer
 class MainContainer extends React.Component<any> {
   public render() {
-    return (
-      <React.Fragment>
-        <Typography variant="title" gutterBottom={true}>
+    const { classes } = this.props;
+    return <div>
+        <Typography className={classes.typography} variant="headline" gutterBottom={true} align="center">
           Neighbourhood Simulation
         </Typography>
-        <Grid container={true} spacing={24}>
-          <Grid item={true} xs={12} sm={6}>
-            <Paper className={this.props.classes.paper}>
+        <Grid container={true} spacing={8}>
+          <Grid item={true} xs={12} sm={6} className={classes.center}>
+            <div>
               <HouseInputComponent />
+              <Divider className={classes.divider} light={true} />
               <SunlightComponent />
+              <Divider className={classes.divider} light={true} />
               <DemoClockComponent />
-            </Paper>
+            </div>
           </Grid>
         </Grid>
-      </React.Fragment>
-    );
+      </div>;
   }
 }
 
