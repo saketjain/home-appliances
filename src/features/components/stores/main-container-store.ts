@@ -2,7 +2,7 @@ import { action, computed, observable } from "mobx";
 import * as Moment from "moment";
 
 export class MainContainerStore {
-        public clockSteps = ['1hr = 1hr', '1min = 1hr', '30sec = 1hr','15sec = 1hr', '1sec = 1hr'];
+        public clockSteps = ['1hr = 1hr', '1min = 1hr', '30sec = 1hr','15sec = 1hr', '1sec = 1hr', '0.5sec = 1hr'];
         @observable private sunlight: number = 35;
         @observable private houseCount: number = 1;
         @observable private currentClockRate: number = 0;
@@ -47,6 +47,8 @@ export class MainContainerStore {
         @action public handlePlayClick = () => {
             if (!this.timerPaused){
                 this.currentTimeStamp = Moment(this.startHour, "HH");
+            }else{
+                this.timerPaused = false;
             }
             this.getIncrementInterval();
             
@@ -84,6 +86,9 @@ export class MainContainerStore {
                     break;
                 case 4:
                     this.currentTimeStamp = Moment(this.currentTimeStamp).add(1, "h");
+                    break;
+                case 5:
+                    this.currentTimeStamp = Moment(this.currentTimeStamp).add(2, "h");
                     break;
                 default:
                     this.currentTimeStamp = Moment(this.currentTimeStamp).add(1, "s");

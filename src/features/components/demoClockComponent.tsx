@@ -60,7 +60,7 @@ class DemoClockComponent extends React.Component<any> {
             </Typography>
 
             <div className={classes.clockWidth}>
-              <Slider value={currentClockRate} aria-labelledby="Clock rate change" onChange={handleClockRateChange} step={1} min={0} max={4} />
+              <Slider value={currentClockRate} aria-labelledby="Clock rate change" onChange={handleClockRateChange} step={1} min={0} max={5} />
             </div>
 
             {!currentTimeStamp ? <Typography variant="caption" gutterBottom={true} align="center">
@@ -77,15 +77,14 @@ class DemoClockComponent extends React.Component<any> {
             </div>
 
             <div style={{ textAlign: "center" }}>
-
-              <IconButton color="primary" className={classes.button} disabled={!timerPaused && !currentTimeStamp} onClick={handlePauseClick} aria-label="Pause the clock">
+              <IconButton color="primary" className={classes.button} disabled={(timerPaused && currentTimeStamp) || !currentTimeStamp} onClick={handlePauseClick} aria-label="Pause the clock">
                 <PauseCircleFilled />
               </IconButton>
 
-              <IconButton color="primary" className={classes.button} disabled={currentTimeStamp} onClick={handlePlayClick} aria-label="Play the clock">
+              <IconButton color="primary" className={classes.button} disabled={!timerPaused && currentTimeStamp} onClick={handlePlayClick} aria-label="Play the clock">
                 <PlayCircleFilled />
               </IconButton>
-              
+
               <IconButton color="primary" className={classes.button} disabled={!currentTimeStamp} onClick={handleStopClick} aria-label="Play the clock">
                 <Stop />
               </IconButton>
