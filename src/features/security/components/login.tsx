@@ -59,7 +59,7 @@ class Login extends React.Component<Props> {
         const handleLogin = () => this.handleLogin();
         
         if (authStore!.isAuthenticated) {
-            return <Redirect to={AppConstants.CLIENT_URLS.PORTFOLIO_LIST}/>
+            return <Redirect to={AppConstants.CLIENT_URLS.NEIGHBOURHOOD_SIMULATION}/>
         }
         
         return (

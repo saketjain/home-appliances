@@ -62,12 +62,10 @@ export class AuthStore {
             if (token) {
                 const decodeToken = jwt.decode(token);
                 const expired = this.hasExpired(decodeToken);
-                if (!expired) {
-                    this.decodeToken(token);
-                    this.isAuthenticated = true;
-                    this.messagingHandler.setAuthorizationHeader(token);
-                    return;
-                }
+                this.decodeToken(token);
+                this.isAuthenticated = true;
+                this.messagingHandler.setAuthorizationHeader(token);
+                return;
             }
             this.destroy();
         } catch (e) {

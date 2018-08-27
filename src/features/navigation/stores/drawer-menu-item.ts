@@ -1,24 +1,17 @@
 import {AppConstants} from '../../../constants';
 
-const portfolioSubMenu = [
-  {
-    component: null,
-    label: 'Summary',
-    path: AppConstants.CLIENT_URLS.PORTFOLIO_SUMMARY
-  }     
-];
 
 export const menu = [
   {
-    label: 'Home',
-    subMenu: portfolioSubMenu
+    label: 'Neighbourhood',
+    path: AppConstants.CLIENT_URLS.NEIGHBOURHOOD_SIMULATION
   },
   {
-    label: 'Neighbourhood',
-    subMenu: []
+    label: 'Load Balancer',
+    path: AppConstants.CLIENT_URLS.LOAD_BALANCER
   },  
   {
-    label: 'Settings',
-    subMenu: []
+    label: 'Home',
+    path: AppConstants.CLIENT_URLS.HOME_SIMULATION
   }  
 ];

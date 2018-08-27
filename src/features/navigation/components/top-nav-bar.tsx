@@ -9,10 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import history from '../../../navigation-history';
-import MainContainer from '../../components/main-container';
 import { DrawerMenuStore } from '../stores/drawer-menu-store';
 import { TopNavStore } from '../stores/top-nav-store';
-import { ContextMenu } from './context-menu';
 import DrawerMenu from './drawer-menu';
 
 const styles: StyleRulesCallback = theme => createStyles({
@@ -56,14 +54,10 @@ class TopNavBar extends React.Component<ITopNavBarProps, ITopNavBarState> {
             <Typography variant="title" color="inherit" className={classes.flex}>
               Simulation app
             </Typography>
-            <ContextMenu />
           </Toolbar>
         </AppBar>
         <DrawerMenu />
-        <div className={classes.layout}>
-          <MainContainer className={classes.center} />
-        </div>
-      </div>;
+      </div>
   }
 
   private renderLeftMenuButton(){

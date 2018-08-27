@@ -36,9 +36,9 @@ export default class TabNavigation extends React.Component {
   private handleChange = (event: any, value: number) => {
     this.setState({ value });
     switch (value) {
-      case 1: history.push(AppConstants.CLIENT_URLS.ALERTS); break;
-      case 2: history.push(AppConstants.CLIENT_URLS.SETTINGS); break;
-      default: history.push(AppConstants.CLIENT_URLS.PORTFOLIO_SUMMARY);
+      case 1: history.push(AppConstants.CLIENT_URLS.LOAD_BALANCER); break;
+      case 2: history.push(AppConstants.CLIENT_URLS.HOME_SIMULATION); break;
+      default: history.push(AppConstants.CLIENT_URLS.NEIGHBOURHOOD_SIMULATION);
     }
   };
 
