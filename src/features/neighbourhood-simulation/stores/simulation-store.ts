@@ -22,11 +22,11 @@ export class SimulationStore {
         this.currentTimeStamp = this.startOfDay;
     }
 
-    @action public handleSunlightChange = (value: number) => {
+    @action public handleSunlightChange = (event: any, value: number) => {
         this.sunlightSlider = value;
     };
 
-    @action public handleHouseCountChange = (value: number) => {
+    @action public handleHouseCountChange = (event: any, value: number) => {
         this.numberOfHouses = value;
     };
 

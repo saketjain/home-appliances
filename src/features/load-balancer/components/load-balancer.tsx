@@ -1,7 +1,8 @@
 import * as Highcharts from 'highcharts';
+import { inject, observer } from "mobx-react";
 import * as React from 'react';
 import {
-  Chart, HighchartsChart, Legend, LineSeries, Title, withHighcharts, XAxis, YAxis
+  Chart, HighchartsChart, Legend, LineSeries, Title, Tooltip, withHighcharts, XAxis, YAxis
 } from 'react-jsx-highcharts';
 import SockJsClient from 'react-stomp';
 
@@ -9,6 +10,8 @@ interface ILoadBalancerState {
   data: any;
 }
 
+@inject('consumptionStore')
+@observer
 class LoadBalancer extends React.Component<any, ILoadBalancerState> {
 
   private connection: WebSocket;
@@ -24,17 +27,16 @@ class LoadBalancer extends React.Component<any, ILoadBalancerState> {
   }
 
   public updateLiveData (message: any) {
-    const { data } = this.state;
-    const newData = data.slice(0); // Clone
-    newData.push([message.timeStamp, message.load]);
-    this.setState({
-      data: newData
-    });
+    const { consumptionStore } = this.props;
+    consumptionStore.updateLiveData(message);
+  }
+
+  public formatToolTip() {
+    return "<b>Hello</b>";
   }
 
   public render() {
-    const { data } = this.state;
-
+    const { consumptionStore: { data } } = this.props;
     return (
       <div className="app">
         <SockJsClient url='http://localhost:8080/ws' topics={['/topic/1']}
@@ -55,8 +57,10 @@ class LoadBalancer extends React.Component<any, ILoadBalancerState> {
 
           <YAxis>
             <YAxis.Title>Consumption (Kwh)</YAxis.Title>
-            <LineSeries data={data} />
+            <LineSeries name="Consumption" data={data} />
           </YAxis>
+
+          <Tooltip padding={10} hideDelay={250} shape="square" formatToolTip={this.formatToolTip}/>
         </HighchartsChart>
       </div>
     );
