@@ -21,12 +21,18 @@ export class ConsumptionStore {
         this.data = newData;
     }
 
+    @action
+    public clearData() {
+        this.data = [];
+    }
+
     private convertUTCDateToLocalDate(longDate: number) {
         // const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
         const newDate = new Date(longDate);
         newDate.setMinutes(newDate.getMinutes() - newDate.getTimezoneOffset())
         return newDate.getTime();
     }
+
 }
 
 export const consumptionStore = new ConsumptionStore();

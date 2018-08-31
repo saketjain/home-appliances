@@ -7,5 +7,6 @@ export class MockAxiosMessagingHandler {
         const mock = new MockAdapter(axios);
         mock.onPost(/\/security\/generateToken/).reply(200, token);
         mock.onPost(/\/startNeighbourhoodSimulation/).passThrough();
+        mock.onPost(/\/stopNeighbourhoodSimulation/).passThrough();
     }
 }

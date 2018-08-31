@@ -1,4 +1,5 @@
 import { action, observable } from "mobx";
+import { consumptionStore } from '../../load-balancer/stores/consumption-store';
 import { simulationService } from "../services/simulation-service";
 
 export class SimulationStore {
@@ -60,17 +61,16 @@ export class SimulationStore {
         clearInterval(this.currentTimeStampInterval);
         this.currentTimeStamp = this.startOfDay;
         this.clockSlider = 0;
+        consumptionStore.clearData();
+        this.stopSimulation();
     }
 
     private startSimulation = () => {
-        const simulationRequest = {
-            clockRate: this.clockRate,
-            currentTimeStamp: this.currentTimeStamp,
-            id: '1',
-            numberOfHouses: this.numberOfHouses,
-            sunlight: 0,
-        }
-        simulationService.startSimulation(simulationRequest);
+        simulationService.startSimulation(this.simulationRequest());
+    }
+
+    private stopSimulation = () => {
+        simulationService.stopSimulation(this.simulationRequest());
     }
 
     private resumeClock = () => {
@@ -78,6 +78,16 @@ export class SimulationStore {
         this.currentTimeStamp = new Date(newTimeStamp)
         const seconds = Math.round((this.currentTimeStamp.getTime() - this.startOfDay.getTime())/1000);
         this.clockSlider = (seconds / (24 * 3600)) * 100;
+    }
+
+    private simulationRequest(){
+        return {
+            clockRate: this.clockRate,
+            currentTimeStamp: this.currentTimeStamp,
+            id: '1',
+            numberOfHouses: this.numberOfHouses,
+            sunlight: 0,
+        }
     }
 }
 

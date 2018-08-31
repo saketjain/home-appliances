@@ -9,6 +9,6 @@ export const AppConstants = {
         CONSUMPTION_TOPIC: '/topic',
         GENERATE_TOKEN: '/generateToken',
         START_SIMULATION: '/startNeighbourhoodSimulation',
-        STOP_SIMULATION: '/stopNeighbourHoodSimulation'
+        STOP_SIMULATION: '/stopNeighbourhoodSimulation'
     }
 };
