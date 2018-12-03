@@ -1,7 +1,7 @@
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as React from 'react';
-import sun from '../../../../img/sun.png';
+import sun from '../../../../img/sun2.png';
 
 const styles = createStyles({
     sunStart: {
@@ -13,7 +13,8 @@ const styles = createStyles({
         width: '150px',
         height: '152px',
         background: 'transparent no-repeat center center',
-        zIindex: 2
+        zIindex: 2,
+        opacity: 0
     },
     sunEnd: {
         position: 'absolute',
@@ -25,23 +26,23 @@ const styles = createStyles({
         height: '152px',
         background: 'transparent no-repeat center center',
         zIindex: 2,
-        opacity: 0.4,
+        opacity: 0.8,
         transition: 'opacity 5s, transform 5s',
-        transform: 'translate(0px, 250px)'
+        transform: 'translate(0px, 250px)',
     }
 });
 
-interface ISunYellowProps extends WithStyles<typeof styles> {
+interface ISunRedProps extends WithStyles<typeof styles> {
     time?: number; 
 }
 
-interface ISunYellowState {
+interface ISunRedState {
     startAnimation: boolean;
 }
 
-class SunYellow extends React.Component<ISunYellowProps, ISunYellowState> {
+class SunRed extends React.Component<ISunRedProps, ISunRedState> {
     
-    constructor(props: ISunYellowProps) {
+    constructor(props: ISunRedProps) {
         super(props);
         this.state = {
             startAnimation: false
@@ -65,4 +66,4 @@ class SunYellow extends React.Component<ISunYellowProps, ISunYellowState> {
     }
 }
 
-export default withStyles(styles)(SunYellow);
+export default withStyles(styles)(SunRed);

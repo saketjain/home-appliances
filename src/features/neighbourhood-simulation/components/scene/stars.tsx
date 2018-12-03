@@ -1,45 +1,45 @@
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as React from 'react';
-import clouds from '../../../../img/clouds.png';
+import stars from '../../../../img/stars.png';
 
 const styles = createStyles({
-    cloudStart: {
+    starStart: {
         position: 'absolute',
         top: '0px',
         left: '0px',
         right: '0px',
-        bottom: '0px',
+        bottom: '200px',
         width: '100%',
-        zIindex: 3,
-        background: 'transparent repeat-x top left',
+        background: 'transparent repeat bottom center',
+        zIndex: 5,
+        opacity:0
     },
-    cloudEnd: {
+    starEnd: {
         position: 'absolute',
         top: '0px',
         left: '0px',
         right: '0px',
-        bottom: '0px',
+        bottom: '200px',
         width: '100%',
-        zIindex: 3,
-        background: 'transparent repeat-x top left',
-        opacity: 0,
-        transition: 'opacity 5s, transform 5s',
-        transform: 'translate(1000px, 0px)',
-    }    
+        background: 'transparent repeat bottom center',
+        zIndex: 5,
+        opacity:1,
+        transition: 'opacity 5s',
+    }
 });
 
-interface ICloudProps extends WithStyles<typeof styles> {
+interface IStarProps extends WithStyles<typeof styles> {
     time?: number; 
 }
 
-interface ICloudState {
+interface IStarState {
     startAnimation: boolean;
 }
 
-class Clouds extends React.Component<ICloudProps, ICloudState> {
+class Stars extends React.Component<IStarProps, IStarState> {
     
-    constructor(props: ICloudProps) {
+    constructor(props: IStarProps) {
         super(props);
         this.state = {
             startAnimation: false
@@ -56,11 +56,11 @@ class Clouds extends React.Component<ICloudProps, ICloudState> {
 
     public render() {
         const { classes } = this.props;
-        const styleClass = this.state.startAnimation ? classes.cloudEnd : classes.cloudStart;
+        const styleClass = this.state.startAnimation ? classes.starEnd : classes.starStart;
         return (
-            <img className = {styleClass} src={clouds}/>
+            <img className = {styleClass} src={stars}/>
         )
     }
 }
 
-export default withStyles(styles)(Clouds);
+export default withStyles(styles)(Stars);

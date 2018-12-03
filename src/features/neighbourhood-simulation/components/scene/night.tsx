@@ -1,45 +1,44 @@
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as React from 'react';
-import clouds from '../../../../img/clouds.png';
 
 const styles = createStyles({
-    cloudStart: {
+    skyStart: {
         position: 'absolute',
         top: '0px',
         left: '0px',
         right: '0px',
         bottom: '0px',
         width: '100%',
-        zIindex: 3,
-        background: 'transparent repeat-x top left',
+        background:'#000',
+        zIndex: 4,
+        opacity: 0
     },
-    cloudEnd: {
+    skyEnd: {
         position: 'absolute',
         top: '0px',
         left: '0px',
         right: '0px',
         bottom: '0px',
         width: '100%',
-        zIindex: 3,
-        background: 'transparent repeat-x top left',
-        opacity: 0,
-        transition: 'opacity 5s, transform 5s',
-        transform: 'translate(1000px, 0px)',
-    }    
+        background:'#000',
+        zIndex: 4,
+        opacity: 0.8,
+        transition: 'opacity 5s',
+    }
 });
 
-interface ICloudProps extends WithStyles<typeof styles> {
+interface INightProps extends WithStyles<typeof styles> {
     time?: number; 
 }
 
-interface ICloudState {
+interface INightState {
     startAnimation: boolean;
 }
 
-class Clouds extends React.Component<ICloudProps, ICloudState> {
+class Night extends React.Component<INightProps, INightState> {
     
-    constructor(props: ICloudProps) {
+    constructor(props: INightProps) {
         super(props);
         this.state = {
             startAnimation: false
@@ -56,11 +55,11 @@ class Clouds extends React.Component<ICloudProps, ICloudState> {
 
     public render() {
         const { classes } = this.props;
-        const styleClass = this.state.startAnimation ? classes.cloudEnd : classes.cloudStart;
+        const styleClass = this.state.startAnimation ? classes.skyEnd : classes.skyStart;
         return (
-            <img className = {styleClass} src={clouds}/>
+            <div className = {styleClass}/>
         )
     }
 }
 
-export default withStyles(styles)(Clouds);
+export default withStyles(styles)(Night);
