@@ -1,48 +1,44 @@
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as React from 'react';
-import sun from '../../../../img/sun2.png';
+import moon from '../../../../img/moon.png';
 
 const styles = createStyles({
-    sunStart: {
+    moonStart: {
         position: 'absolute',
         left: '45%',
-        top: '50%',
-        right: '0px',
-        bottom: '0px',
-        width: '150px',
-        height: '152px',
+        top: '60%',
+        width: '168px',
+        height: '168px',
         background: 'transparent no-repeat center center',
-        zIindex: 2,
+        zIindex: 6,
         opacity: 0
     },
-    sunEnd: {
+    moonEnd: {
         position: 'absolute',
         left: '45%',
-        top: '50%',
-        right: '0px',
-        bottom: '0px',
-        width: '150px',
-        height: '152px',
+        top: '60%',
+        width: '168px',
+        height: '168px',
         background: 'transparent no-repeat center center',
-        zIindex: 2,
-        opacity: 0.8,
-        transition: 'opacity 12s, transform 12s',
-        transform: 'translate(0px, 250px)',
+        zIindex: 6,
+        opacity: 1,
+        transition: 'opacity 5s, transform 5s',
+        transform: 'translate(0px, -250px)',
     }
 });
 
-interface ISunRedProps extends WithStyles<typeof styles> {
+interface IMoonProps extends WithStyles<typeof styles> {
     time?: number; 
 }
 
-interface ISunRedState {
+interface IMoonState {
     startAnimation: boolean;
 }
 
-class SunRed extends React.Component<ISunRedProps, ISunRedState> {
+class Moon extends React.Component<IMoonProps, IMoonState> {
     
-    constructor(props: ISunRedProps) {
+    constructor(props: IMoonProps) {
         super(props);
         this.state = {
             startAnimation: false
@@ -54,16 +50,16 @@ class SunRed extends React.Component<ISunRedProps, ISunRedState> {
             this.setState({
                 startAnimation: true
             })
-        }, 0);
+        }, 17000);
     }
 
     public render() {
         const { classes } = this.props;
-        const styleClass = this.state.startAnimation ? classes.sunEnd : classes.sunStart
+        const styleClass = this.state.startAnimation ? classes.moonEnd : classes.moonStart
         return (
-            <img className = {styleClass} src={sun}/>
+            <img className = {styleClass} src={moon}/>
         )
     }
 }
 
-export default withStyles(styles)(SunRed);
+export default withStyles(styles)(Moon);

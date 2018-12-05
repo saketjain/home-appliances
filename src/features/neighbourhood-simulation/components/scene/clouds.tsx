@@ -24,7 +24,7 @@ const styles = createStyles({
         zIindex: 3,
         background: 'transparent repeat-x top left',
         opacity: 0,
-        transition: 'opacity 5s, transform 5s',
+        transition: 'opacity 30s, transform 30s',
         transform: 'translate(1000px, 0px)',
     }    
 });

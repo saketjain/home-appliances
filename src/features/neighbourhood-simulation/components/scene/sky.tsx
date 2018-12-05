@@ -4,6 +4,10 @@ import * as React from 'react';
 import sky from '../../../../img/sky.png';
 
 const styles = createStyles({
+    '@keyframes sky': {
+        from: {background: '#fff'},
+        to: {background: '#4F0030'}
+    },
     skyStart: {
         position: 'absolute',
         top: '0px',
@@ -11,17 +15,9 @@ const styles = createStyles({
         right: '0px',
         bottom: '0px',
         width: '100%',
-        background: 'transparent repeat-x top left',
-    },
-    skyEnd: {
-        position: 'absolute',
-        top: '0px',
-        left: '0px',
-        right: '0px',
-        bottom: '0px',
-        width: '100%',
-        background: '#4F0030',
-        transition: 'background 5s',
+        background: '#fff repeat-x top left',
+        animationName: '$sky',
+        animationDuration: '20s'
     }
 });
 
@@ -52,7 +48,7 @@ class Sky extends React.Component<ISkyProps, ISkyState> {
 
     public render() {
         const { classes } = this.props;
-        const styleClass = this.state.startAnimation ? classes.skyEnd : classes.skyStart;
+        const styleClass = classes.skyStart;
         return (
             <img className = {styleClass} src={sky}/>
         )

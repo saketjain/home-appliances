@@ -26,7 +26,7 @@ const styles = createStyles({
         background: 'transparent no-repeat center center',
         zIindex: 2,
         opacity: 0.4,
-        transition: 'opacity 5s, transform 5s',
+        transition: 'opacity 12s, transform 12s',
         transform: 'translate(0px, 250px)'
     }
 });

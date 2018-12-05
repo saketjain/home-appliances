@@ -51,7 +51,7 @@ class Stars extends React.Component<IStarProps, IStarState> {
             this.setState({
                 startAnimation: true
             })
-        }, 0);
+        }, 12000);
     }
 
     public render() {

@@ -24,7 +24,7 @@ const styles = createStyles({
         background:'#000',
         zIndex: 4,
         opacity: 0.8,
-        transition: 'opacity 5s',
+        transition: 'opacity 20s',
     }
 });
 
