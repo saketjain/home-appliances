@@ -2,64 +2,72 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as React from 'react';
 import clouds from '../../../../img/clouds.png';
+import { Schedule } from '../../domain/schedule';
 
 const styles = createStyles({
-    cloudStart: {
-        position: 'absolute',
-        top: '0px',
-        left: '0px',
-        right: '0px',
-        bottom: '0px',
-        width: '100%',
-        zIindex: 3,
-        background: 'transparent repeat-x top left',
+    '@keyframes clouds': {
+        from: {transform: 'translateX(0%)', opacity: 1},
+        to: {transform: 'translateX(50%)', opacity: 0}
     },
-    cloudEnd: {
+    cloudsStyle: {
         position: 'absolute',
-        top: '0px',
         left: '0px',
+        top: '0px',
         right: '0px',
         bottom: '0px',
         width: '100%',
-        zIindex: 3,
         background: 'transparent repeat-x top left',
-        opacity: 0,
-        transition: 'opacity 30s, transform 30s',
-        transform: 'translate(1000px, 0px)',
-    }    
+        zIndex: 3,
+    }
 });
 
-interface ICloudProps extends WithStyles<typeof styles> {
-    time?: number; 
+interface ICloudsProps extends WithStyles<typeof styles> {
+    schedule: Schedule;
 }
 
-interface ICloudState {
-    startAnimation: boolean;
+interface ICloudsState {
+    duration: number;
+    delay: number;
 }
 
-class Clouds extends React.Component<ICloudProps, ICloudState> {
-    
-    constructor(props: ICloudProps) {
+class Clouds extends React.Component<ICloudsProps, ICloudsState> {
+ 
+    private DURATION: number = 1;
+
+    private DELAY: number = 0;
+
+    constructor(props: ICloudsProps){
         super(props);
-        this.state = {
-            startAnimation: false
-        };
+        this.state = this.calculateSchedule();
     }
 
-    public componentWillMount() {
-        setTimeout(() => {
-            this.setState({
-                startAnimation: true
-            })
-        }, 0);
+    public componentDidUpdate() {
+        this.setState(this.calculateSchedule());
     }
 
     public render() {
-        const { classes } = this.props;
-        const styleClass = this.state.startAnimation ? classes.cloudEnd : classes.cloudStart;
-        return (
-            <img className = {styleClass} src={clouds}/>
-        )
+        const { classes: {cloudsStyle}, schedule: { paused }} = this.props;
+        const {duration, delay} = this.state;
+        const animation = `clouds ${duration}s ${delay}s forwards`;
+        const style = paused ? {animation: `${animation} paused`} : {animation: `${animation} running`}; 
+        return this.shouldRender()
+            ? (
+                <img className = {cloudsStyle} style={style} src={clouds}/>
+            ) : null;
+    }
+
+    private calculateSchedule() {
+        const { schedule: { sceneDuration, sceneStart }} = this.props;
+        const duration = sceneDuration * this.DURATION;
+        const delay = sceneDuration * this.DELAY - sceneStart;
+        return {duration, delay};
+    }
+
+    private shouldRender() {
+        const { schedule: { sceneDuration, sceneStart }} = this.props;
+        const duration = sceneDuration * this.DURATION;
+        const delay = sceneDuration * this.DELAY;
+        return sceneStart <= delay + duration;
     }
 }
 

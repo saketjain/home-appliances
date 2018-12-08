@@ -16,7 +16,7 @@ export default class Scene extends React.Component {
                 <Night schedule={{sceneDuration: 24, sceneStart: 0, paused:false}}/>
                 <Moon schedule={{sceneDuration: 24, sceneStart: 0, paused:false}}/>
                 <Stars schedule={{sceneDuration: 24, sceneStart: 0, paused:false}}/>
-                <Clouds/>
+                <Clouds schedule={{sceneDuration: 24, sceneStart: 0, paused:false}}/>
                 <SunYellow schedule={{sceneDuration: 24, sceneStart: 0, paused:false}}/>
                 <SunRed schedule={{sceneDuration: 24, sceneStart: 0, paused:false}}/>
                 <Ground/>
