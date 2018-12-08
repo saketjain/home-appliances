@@ -2,63 +2,74 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as React from 'react';
 import moon from '../../../../img/moon.png';
+import { Schedule } from '../../domain/schedule';
 
 const styles = createStyles({
-    moonStart: {
-        position: 'absolute',
-        left: '45%',
-        top: '60%',
-        width: '168px',
-        height: '168px',
-        background: 'transparent no-repeat center center',
-        zIindex: 6,
-        opacity: 0
+    '@keyframes moon': {
+        from: {top: '60%', opacity: 0},
+        to: {top: '30%', opacity: 1}
     },
-    moonEnd: {
+    moonStyle: {
         position: 'absolute',
         left: '45%',
         top: '60%',
+        right: '0px',
+        bottom: '0px',
         width: '168px',
         height: '168px',
-        background: 'transparent no-repeat center center',
-        zIindex: 6,
-        opacity: 1,
-        transition: 'opacity 5s, transform 5s',
-        transform: 'translate(0px, -250px)',
+        background: 'transparent repeat bottom center',
+        zIndex: 6,
+        opacity: 0
     }
 });
 
 interface IMoonProps extends WithStyles<typeof styles> {
-    time?: number; 
+    schedule: Schedule;
 }
 
 interface IMoonState {
-    startAnimation: boolean;
+    duration: number;
+    delay: number;
 }
 
 class Moon extends React.Component<IMoonProps, IMoonState> {
-    
-    constructor(props: IMoonProps) {
+ 
+    private DURATION: number = 0.25;
+
+    private DELAY: number = 0.75;
+
+    constructor(props: IMoonProps){
         super(props);
-        this.state = {
-            startAnimation: false
-        };
+        this.state = this.calculateSchedule();
     }
 
-    public componentWillMount() {
-        setTimeout(() => {
-            this.setState({
-                startAnimation: true
-            })
-        }, 17000);
+    public componentDidUpdate() {
+        this.setState(this.calculateSchedule());
     }
 
     public render() {
-        const { classes } = this.props;
-        const styleClass = this.state.startAnimation ? classes.moonEnd : classes.moonStart
-        return (
-            <img className = {styleClass} src={moon}/>
-        )
+        const { classes: {moonStyle}, schedule: { paused }} = this.props;
+        const {duration, delay} = this.state;
+        const animation = `moon ${duration}s ${delay}s forwards`;
+        const style = paused ? {animation: `${animation} paused`} : {animation: `${animation} running`}; 
+        return this.shouldRender()
+            ? (
+                <img className = {moonStyle} style={style} src={moon}/>
+            ) : null;
+    }
+
+    private calculateSchedule() {
+        const { schedule: { sceneDuration, sceneStart }} = this.props;
+        const duration = sceneDuration * this.DURATION;
+        const delay = sceneDuration * this.DELAY - sceneStart;
+        return {duration, delay};
+    }
+
+    private shouldRender() {
+        const { schedule: { sceneDuration, sceneStart }} = this.props;
+        const duration = sceneDuration * this.DURATION;
+        const delay = sceneDuration * this.DELAY;
+        return sceneStart <= delay + duration;
     }
 }
 

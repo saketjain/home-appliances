@@ -50,7 +50,7 @@ class SunRed extends React.Component<ISunRedProps, ISunRedState> {
     public render() {
         const { classes: {sunStart}, schedule: { paused }} = this.props;
         const {duration, delay} = this.state;
-        const animation = `sunRed ${duration}s ${delay}s`;
+        const animation = `sunRed ${duration}s ${delay}s forwards`;
         const style = paused ? {animation: `${animation} paused`} : {animation: `${animation} running`}; 
         return this.shouldRender()
             ? (

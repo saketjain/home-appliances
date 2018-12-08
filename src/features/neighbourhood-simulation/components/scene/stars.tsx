@@ -2,64 +2,73 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as React from 'react';
 import stars from '../../../../img/stars.png';
+import { Schedule } from '../../domain/schedule';
 
 const styles = createStyles({
-    starStart: {
-        position: 'absolute',
-        top: '0px',
-        left: '0px',
-        right: '0px',
-        bottom: '200px',
-        width: '100%',
-        background: 'transparent repeat bottom center',
-        zIndex: 5,
-        opacity:0
+    '@keyframes stars': {
+        from: {opacity: 0},
+        to: {opacity: 1}
     },
-    starEnd: {
+    starsStyle: {
         position: 'absolute',
-        top: '0px',
         left: '0px',
+        top: '0px',
         right: '0px',
         bottom: '200px',
         width: '100%',
         background: 'transparent repeat bottom center',
         zIndex: 5,
-        opacity:1,
-        transition: 'opacity 5s',
+        opacity: 0
     }
 });
 
-interface IStarProps extends WithStyles<typeof styles> {
-    time?: number; 
+interface IStarsProps extends WithStyles<typeof styles> {
+    schedule: Schedule;
 }
 
-interface IStarState {
-    startAnimation: boolean;
+interface IStarsState {
+    duration: number;
+    delay: number;
 }
 
-class Stars extends React.Component<IStarProps, IStarState> {
-    
-    constructor(props: IStarProps) {
+class Stars extends React.Component<IStarsProps, IStarsState> {
+ 
+    private DURATION: number = 0.75;
+
+    private DELAY: number = 0;
+
+    constructor(props: IStarsProps){
         super(props);
-        this.state = {
-            startAnimation: false
-        };
+        this.state = this.calculateSchedule();
     }
 
-    public componentWillMount() {
-        setTimeout(() => {
-            this.setState({
-                startAnimation: true
-            })
-        }, 12000);
+    public componentDidUpdate() {
+        this.setState(this.calculateSchedule());
     }
 
     public render() {
-        const { classes } = this.props;
-        const styleClass = this.state.startAnimation ? classes.starEnd : classes.starStart;
-        return (
-            <img className = {styleClass} src={stars}/>
-        )
+        const { classes: {starsStyle}, schedule: { paused }} = this.props;
+        const {duration, delay} = this.state;
+        const animation = `stars ${duration}s ${delay}s forwards`;
+        const style = paused ? {animation: `${animation} paused`} : {animation: `${animation} running`}; 
+        return this.shouldRender()
+            ? (
+                <img className = {starsStyle} style={style} src={stars}/>
+            ) : null;
+    }
+
+    private calculateSchedule() {
+        const { schedule: { sceneDuration, sceneStart }} = this.props;
+        const duration = sceneDuration * this.DURATION;
+        const delay = sceneDuration * this.DELAY - sceneStart;
+        return {duration, delay};
+    }
+
+    private shouldRender() {
+        const { schedule: { sceneDuration, sceneStart }} = this.props;
+        const duration = sceneDuration * this.DURATION;
+        const delay = sceneDuration * this.DELAY;
+        return sceneStart <= delay + duration;
     }
 }
 

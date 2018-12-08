@@ -1,64 +1,73 @@
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as React from 'react';
+import { Schedule } from '../../domain/schedule';
 
 const styles = createStyles({
-    skyStart: {
-        position: 'absolute',
-        top: '0px',
-        left: '0px',
-        right: '0px',
-        bottom: '0px',
-        width: '100%',
-        background:'#000',
-        zIndex: 4,
-        opacity: 0
+    '@keyframes night': {
+        from: {opacity: 0},
+        to: {opacity: 0.8}
     },
-    skyEnd: {
+    nightStyle: {
         position: 'absolute',
-        top: '0px',
         left: '0px',
+        top: '0px',
         right: '0px',
         bottom: '0px',
         width: '100%',
-        background:'#000',
-        zIndex: 4,
-        opacity: 0.8,
-        transition: 'opacity 20s',
+        background: '#000',
+        zIindex: 4,
+        opacity: 0
     }
 });
 
 interface INightProps extends WithStyles<typeof styles> {
-    time?: number; 
+    schedule: Schedule;
 }
 
 interface INightState {
-    startAnimation: boolean;
+    duration: number;
+    delay: number;
 }
 
 class Night extends React.Component<INightProps, INightState> {
-    
-    constructor(props: INightProps) {
+ 
+    private DURATION: number = 0.8;
+
+    private DELAY: number = 0;
+
+    constructor(props: INightProps){
         super(props);
-        this.state = {
-            startAnimation: false
-        };
+        this.state = this.calculateSchedule();
     }
 
-    public componentWillMount() {
-        setTimeout(() => {
-            this.setState({
-                startAnimation: true
-            })
-        }, 0);
+    public componentDidUpdate() {
+        this.setState(this.calculateSchedule());
     }
 
     public render() {
-        const { classes } = this.props;
-        const styleClass = this.state.startAnimation ? classes.skyEnd : classes.skyStart;
-        return (
-            <div className = {styleClass}/>
-        )
+        const { classes: {nightStyle}, schedule: { paused }} = this.props;
+        const {duration, delay} = this.state;
+        const animation = `night ${duration}s ${delay}s forwards`;
+        const style = paused ? {animation: `${animation} paused`} : {animation: `${animation} running`}; 
+        return this.shouldRender()
+            ? (
+                <div className = {nightStyle} style={style}/>
+            ) : null;
+    }
+
+    private calculateSchedule() {
+        const { schedule: { sceneDuration, sceneStart }} = this.props;
+        const duration = sceneDuration * this.DURATION;
+        const delay = sceneDuration * this.DELAY - sceneStart;
+        return {duration, delay};
+    }
+
+    private shouldRender() {
+        const { schedule: { sceneDuration, sceneStart }} = this.props;
+        const duration = sceneDuration * this.DURATION;
+        const delay = sceneDuration * this.DELAY;
+        return sceneStart <= delay + duration;
     }
 }
 

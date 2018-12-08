@@ -49,7 +49,7 @@ class SunYellow extends React.Component<ISunYellowProps, ISunYellowState> {
     public render() {
         const { classes: {sunStart}, schedule: { paused }} = this.props;
         const {duration, delay} = this.state;
-        const animation = `sunYellow ${duration}s ${delay}s`;
+        const animation = `sunYellow ${duration}s ${delay}s forwards`;
         const style = paused ? {animation: `${animation} paused`} : {animation: `${animation} running`}; 
         return this.shouldRender()
             ? (
