@@ -5,9 +5,9 @@ import sun from '../../../../img/sun.png';
 import { Schedule } from '../../domain/schedule';
 
 const styles = createStyles({
-    '@keyframes sun': {
-        from: {top: '45%'},
-        to: {top: '90%'}
+    '@keyframes sunYellow': {
+        from: {opacity: 1, top: '45%'},
+        to: {opacity: 0.4, top: '96%'}
     },
     sunStart: {
         position: 'absolute',
@@ -35,7 +35,7 @@ class SunYellow extends React.Component<ISunYellowProps, ISunYellowState> {
  
     private DURATION: number = 0.5;
 
-    private DELAY: number = 0.25;
+    private DELAY: number = 0;
 
     constructor(props: ISunYellowProps){
         super(props);
@@ -49,13 +49,12 @@ class SunYellow extends React.Component<ISunYellowProps, ISunYellowState> {
     public render() {
         const { classes: {sunStart}, schedule: { paused }} = this.props;
         const {duration, delay} = this.state;
-        const animation = `sun ${duration}s ${delay}s`;
+        const animation = `sunYellow ${duration}s ${delay}s`;
         const style = paused ? {animation: `${animation} paused`} : {animation: `${animation} running`}; 
-        return Math.abs(delay) >= duration
-            ? null
-            : (
+        return this.shouldRender()
+            ? (
                 <img className = {sunStart} style={style} src={sun}/>
-            );
+            ) : null;
     }
 
     private calculateSchedule() {
@@ -63,6 +62,13 @@ class SunYellow extends React.Component<ISunYellowProps, ISunYellowState> {
         const duration = sceneDuration * this.DURATION;
         const delay = sceneDuration * this.DELAY - sceneStart;
         return {duration, delay};
+    }
+
+    private shouldRender() {
+        const { schedule: { sceneDuration, sceneStart }} = this.props;
+        const duration = sceneDuration * this.DURATION;
+        const delay = sceneDuration * this.DELAY;
+        return sceneStart <= delay + duration;
     }
 }
 
