@@ -43,8 +43,10 @@ class Moon extends React.Component<IMoonProps, IMoonState> {
         this.state = this.calculateSchedule();
     }
 
-    public componentDidUpdate() {
-        this.setState(this.calculateSchedule());
+    public componentDidUpdate(prevProps: IMoonProps) {
+        if(!this.props.schedule.equals(prevProps.schedule)) {
+            this.setState(this.calculateSchedule());
+        }
     }
 
     public render() {

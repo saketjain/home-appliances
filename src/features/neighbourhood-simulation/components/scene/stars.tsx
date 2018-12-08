@@ -42,8 +42,10 @@ class Stars extends React.Component<IStarsProps, IStarsState> {
         this.state = this.calculateSchedule();
     }
 
-    public componentDidUpdate() {
-        this.setState(this.calculateSchedule());
+    public componentDidUpdate(prevProps: IStarsProps) {
+        if(!this.props.schedule.equals(prevProps.schedule)) {
+            this.setState(this.calculateSchedule());
+        }
     }
 
     public render() {

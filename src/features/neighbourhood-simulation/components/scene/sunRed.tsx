@@ -43,8 +43,10 @@ class SunRed extends React.Component<ISunRedProps, ISunRedState> {
         this.state = this.calculateSchedule();
     }
 
-    public componentDidUpdate() {
-        this.setState(this.calculateSchedule());
+    public componentDidUpdate(prevProps: ISunRedProps) {
+        if(!this.props.schedule.equals(prevProps.schedule)) {
+            this.setState(this.calculateSchedule());
+        }
     }
 
     public render() {

@@ -4,7 +4,6 @@ import withStyles, { StyleRulesCallback } from "@material-ui/core/styles/withSty
 import Typography from "@material-ui/core/Typography";
 import { observer } from "mobx-react";
 import * as React from "react";
-import DemoClockComponent from "./demoClockComponent";
 import HouseInputComponent from "./houseInputComponent";
 import SunlightComponent from "./sunlightComponent";
 
@@ -35,7 +34,6 @@ class MainContainer extends React.Component<any> {
               <Divider className={classes.divider} light={true} />
               <SunlightComponent />
               <Divider className={classes.divider} light={true} />
-              <DemoClockComponent />
             </div>
           </Grid>
         </Grid>

@@ -10,7 +10,7 @@ const styles = createStyles({
         right: '0px',
         bottom: '0px',
         width: '100%',
-        height: '232px',
+        height: '300px',
         background: 'transparent repeat-x bottom center',
         zIindex: 3
     }

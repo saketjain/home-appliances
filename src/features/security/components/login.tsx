@@ -30,15 +30,14 @@ const styles = createStyles({
     }
 });
 
-export interface ILoginProps  {
+export interface ILoginProps extends WithStyles<typeof styles> {
     authStore?: AuthStore;
 }
 
-type Props = ILoginProps & WithStyles<typeof styles>;
 
 @inject('authStore')
 @observer
-class Login extends React.Component<Props> {
+class Login extends React.Component<ILoginProps> {
 
     public handleLogin() {
         this.props.authStore!.handleLogin();
@@ -95,4 +94,4 @@ class Login extends React.Component<Props> {
     }
 }
 
-export default withStyles(styles)<Props>(Login);
+export default withStyles(styles)(Login);

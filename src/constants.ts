@@ -8,7 +8,7 @@ export const AppConstants = {
     },
     SERVER_URLS: {
         CONSUMPTION_TOPIC: '/topic',
-        GENERATE_TOKEN: '/generateToken',
+        GENERATE_TOKEN: '/security/generateToken',
         START_SIMULATION: '/startNeighbourhoodSimulation',
         STOP_SIMULATION: '/stopNeighbourhoodSimulation'
     }

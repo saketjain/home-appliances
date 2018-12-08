@@ -42,8 +42,10 @@ class SunYellow extends React.Component<ISunYellowProps, ISunYellowState> {
         this.state = this.calculateSchedule();
     }
 
-    public componentDidUpdate() {
-        this.setState(this.calculateSchedule());
+    public componentDidUpdate(prevProps: ISunYellowProps) {
+        if(!this.props.schedule.equals(prevProps.schedule)) {
+            this.setState(this.calculateSchedule());
+        }
     }
 
     public render() {

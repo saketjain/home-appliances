@@ -41,8 +41,10 @@ class Sky extends React.Component<ISkyProps, ISkyState> {
         this.state = this.calculateSchedule();
     }
 
-    public componentDidUpdate() {
-        this.setState(this.calculateSchedule());
+    public componentDidUpdate(prevProps: ISkyProps) {
+        if(!this.props.schedule.equals(prevProps.schedule)) {
+            this.setState(this.calculateSchedule());
+        }
     }
 
     public render() {

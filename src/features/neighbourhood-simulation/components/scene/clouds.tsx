@@ -16,6 +16,7 @@ const styles = createStyles({
         right: '0px',
         bottom: '0px',
         width: '100%',
+        height: '80%',
         background: 'transparent repeat-x top left',
         zIndex: 3,
     }
@@ -41,8 +42,10 @@ class Clouds extends React.Component<ICloudsProps, ICloudsState> {
         this.state = this.calculateSchedule();
     }
 
-    public componentDidUpdate() {
-        this.setState(this.calculateSchedule());
+    public componentDidUpdate(prevProps: ICloudsProps) {
+        if(!this.props.schedule.equals(prevProps.schedule)) {
+            this.setState(this.calculateSchedule());
+        }
     }
 
     public render() {
