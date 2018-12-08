@@ -2,66 +2,67 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as React from 'react';
 import sun from '../../../../img/sun.png';
+import { Schedule } from '../../domain/schedule';
 
 const styles = createStyles({
+    '@keyframes sun': {
+        from: {top: '45%'},
+        to: {top: '90%'}
+    },
     sunStart: {
         position: 'absolute',
         left: '45%',
-        top: '50%',
-        right: '0px',
-        bottom: '0px',
-        width: '150px',
-        height: '152px',
-        background: 'transparent no-repeat center center',
-        zIindex: 2
-    },
-    sunEnd: {
-        position: 'absolute',
-        left: '45%',
-        top: '50%',
+        top: '45%',
         right: '0px',
         bottom: '0px',
         width: '150px',
         height: '152px',
         background: 'transparent no-repeat center center',
         zIindex: 2,
-        opacity: 0.4,
-        transition: 'opacity 12s, transform 12s',
-        transform: 'translate(0px, 250px)'
     }
 });
 
 interface ISunYellowProps extends WithStyles<typeof styles> {
-    time?: number; 
+    schedule: Schedule;
 }
 
 interface ISunYellowState {
-    startAnimation: boolean;
+    duration: number;
+    delay: number;
 }
 
 class SunYellow extends React.Component<ISunYellowProps, ISunYellowState> {
-    
-    constructor(props: ISunYellowProps) {
+ 
+    private DURATION: number = 0.5;
+
+    private DELAY: number = 0.25;
+
+    constructor(props: ISunYellowProps){
         super(props);
-        this.state = {
-            startAnimation: false
-        };
+        this.state = this.calculateSchedule();
     }
 
-    public componentWillMount() {
-        setTimeout(() => {
-            this.setState({
-                startAnimation: true
-            })
-        }, 0);
+    public componentDidUpdate() {
+        this.setState(this.calculateSchedule());
     }
 
     public render() {
-        const { classes } = this.props;
-        const styleClass = this.state.startAnimation ? classes.sunEnd : classes.sunStart
-        return (
-            <img className = {styleClass} src={sun}/>
-        )
+        const { classes: {sunStart}, schedule: { paused }} = this.props;
+        const {duration, delay} = this.state;
+        const animation = `sun ${duration}s ${delay}s`;
+        const style = paused ? {animation: `${animation} paused`} : {animation: `${animation} running`}; 
+        return Math.abs(delay) >= duration
+            ? null
+            : (
+                <img className = {sunStart} style={style} src={sun}/>
+            );
+    }
+
+    private calculateSchedule() {
+        const { schedule: { sceneDuration, sceneStart }} = this.props;
+        const duration = sceneDuration * this.DURATION;
+        const delay = sceneDuration * this.DELAY - sceneStart;
+        return {duration, delay};
     }
 }
 

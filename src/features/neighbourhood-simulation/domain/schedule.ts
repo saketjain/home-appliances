@@ -1,7 +1,7 @@
 
 
 export class Schedule {
-    constructor(public start: number, public duration: number) {
+    constructor(public sceneStart: number, public sceneDuration: number, public paused: boolean) {
 
     }
 }

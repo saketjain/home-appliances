@@ -17,10 +17,11 @@ export default class Scene extends React.Component {
                 <Moon/>
                 <Stars/>
                 <Clouds/>
-                <SunYellow/>
+                <SunYellow schedule={{sceneDuration: 24, sceneStart: 10, paused:false}}/>
                 <SunRed/>
                 <Ground/>
             </div>
         )
     }
+
 }
