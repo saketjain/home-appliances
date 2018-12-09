@@ -7,18 +7,15 @@ import { Schedule } from '../../domain/schedule';
 
 const styles = createStyles({
     '@keyframes windmill': {
-        '50%': {background: `url(${windmill1})`, backgroundSize: '200px 200px'},
-        '51%': {background: `url(${windmill})`, backgroundSize: '200px 200px'},
-        '100%': {background: `url(${windmill})`, backgroundSize: '200px 200px'}
+        '50%': {background: `url(${windmill1})`, backgroundSize: '100% 100%'},
+        '51%': {background: `url(${windmill})`, backgroundSize: '100% 100%'},
+        '100%': {background: `url(${windmill})`, backgroundSize: '100% 100%'}
     },
     houseStyle: {
-        position: 'absolute',
-        left: '75%',
-        top: '75%',
-        width: '200px',
-        height: '200px',
+        width: '100%',
+        height: '100%',
         background: `transparent url(${windmill1})`,
-        backgroundSize: '200px 200px',
+        backgroundSize: '100% 100%',
         zIndex: 8,
     }
 });
@@ -36,7 +33,7 @@ class House extends React.Component<IHouseProps, IHouseState> {
  
     private DURATION: number = 1;
 
-    private DELAY: number = 0.5;
+    private DELAY: number = 0;
 
     constructor(props: IHouseProps){
         super(props);

@@ -7,18 +7,15 @@ import { Schedule } from '../../domain/schedule';
 
 const styles = createStyles({
     '@keyframes house': {
-        '50%': {background: `url(${house1})`, backgroundSize: '150px 150px'},
-        '51%': {background: `url(${house2})`, backgroundSize: '150px 150px'},
-        '100%': {background: `url(${house2})`, backgroundSize: '150px 150px'}
+        '50%': {background: `url(${house1})`, backgroundSize: '100% 100%'},
+        '51%': {background: `url(${house2})`, backgroundSize: '100% 100%'},
+        '100%': {background: `url(${house2})`, backgroundSize: '100% 100%'}
     },
     houseStyle: {
-        position: 'absolute',
-        left: '25%',
-        top: '75%',
-        width: '150px',
-        height: '150px',
+        width: '100%',
+        height: '100%',
         background: `transparent url(${house1})`,
-        backgroundSize: '150px 150px',
+        backgroundSize: '100% 100%',
         zIndex: 8,
     }
 });
@@ -36,7 +33,7 @@ class House extends React.Component<IHouseProps, IHouseState> {
  
     private DURATION: number = 1;
 
-    private DELAY: number = 0.5;
+    private DELAY: number = 0;
 
     constructor(props: IHouseProps){
         super(props);

@@ -6,14 +6,14 @@ import DemoClockComponent from '../../../demo-clock/components/demoClockComponen
 import { Schedule } from '../../domain/schedule';
 import Clouds from './clouds';
 import Ground from './ground';
-import House from './house';
+import HouseList from './house-list';
 import Moon from './moon';
 import Night from './night';
 import Sky from './sky';
 import Stars from "./stars";
 import SunRed from './sunRed';
 import SunYellow from './sunYellow';
-import Windmill from './windmill';
+import WindmillList from './windmill-list';
 
 const styles = createStyles({
     clock: {
@@ -57,8 +57,8 @@ class Scene extends React.Component<WithStyles<typeof styles>, ISceneState> {
                 <Clouds schedule={schedule}/>
                 <SunYellow schedule={schedule}/>
                 <SunRed schedule={schedule}/>
-                <House schedule={schedule}/>
-                <Windmill schedule={schedule}/>
+                <HouseList schedule={schedule}/>
+                <WindmillList schedule={schedule}/>
                 <Ground/>
                 <div className={clock}>
                     <DemoClockComponent onChange={this.onChange} onPause={this.onPause} onPlay={this.onPlay} onStop={this.onStop}/>

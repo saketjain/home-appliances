@@ -35,7 +35,7 @@ class SunYellow extends React.Component<ISunYellowProps, ISunYellowState> {
  
     private DURATION: number = 0.5;
 
-    private DELAY: number = 0;
+    private DELAY: number = 0.5;
 
     constructor(props: ISunYellowProps){
         super(props);
