@@ -24,7 +24,7 @@ const styles = createStyles({
         padding: '10px',
         zIndex: 8,
         background: '#fff',
-        height: '150px'
+        height: '200px'
     }
 });
 
@@ -70,7 +70,9 @@ class Scene extends React.Component<WithStyles<typeof styles>, ISceneState> {
     private onChange = (currentTime: Date, clockRate: number) => {
         // tslint:disable-next-line:no-console
         console.log('ts: ' + currentTime, ' rate: ' + clockRate);
-        this.calculateSchedule(currentTime, clockRate);
+        if(currentTime.getHours() > 0) {
+            this.calculateSchedule(currentTime, clockRate);
+        }
     }
 
     private onPlay = (currentTime: Date, clockRate: number) => {

@@ -36,7 +36,7 @@ class SunRed extends React.Component<ISunRedProps, ISunRedState> {
  
     private DURATION: number = 0.5;
 
-    private DELAY: number = 0.5;
+    private DELAY: number = 0;
 
     constructor(props: ISunRedProps){
         super(props);

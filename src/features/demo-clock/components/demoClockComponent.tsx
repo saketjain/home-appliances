@@ -8,6 +8,7 @@ import PlayCircleFilled from "@material-ui/icons/PlayCircleFilled";
 import Stop from "@material-ui/icons/Stop";
 import Slider from "@material-ui/lab/Slider";
 import { observer } from "mobx-react";
+import * as moment from 'moment';
 
 import * as React from "react";
 import { DemoClockStore } from "../stores/demo-clock-store";
@@ -70,7 +71,7 @@ class DemoClockComponent extends React.Component<IDemoClockProps> {
             </div>
             <br/>
             <Typography variant="body2" gutterBottom={true} align="center">
-                Current Time: {currentTimeStamp.toTimeString()}
+                Current Time: {moment(currentTimeStamp).format('HH:mm:ss')}
             </Typography>
 
             <div className={classes.clockWidth}>

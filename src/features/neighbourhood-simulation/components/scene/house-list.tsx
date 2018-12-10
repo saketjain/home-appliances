@@ -9,24 +9,24 @@ const styles = createStyles({
         position: 'absolute',
         left: '25%',
         top: '85%',
-        width: '75px',
-        height: '75px',
+        width: '25px',
+        height: '25px',
         zIndex: 8
     },
     house2Style: {
         position: 'absolute',
         left: '33%',
         top: '80%',
-        width: '75px',
-        height: '75px',
+        width: '35px',
+        height: '35px',
         zIndex: 8
     },
     house3Style: {
         position: 'absolute',
         left: '40%',
-        top: '87%',
-        width: '100px',
-        height: '100px',
+        top: '80%',
+        width: '50px',
+        height: '50px',
         zIndex: 8
     }    
 });

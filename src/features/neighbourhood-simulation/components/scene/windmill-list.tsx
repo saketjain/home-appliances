@@ -8,7 +8,7 @@ const styles = createStyles({
     house1Style: {
         position: 'absolute',
         left: '75%',
-        top: '80%',
+        top: '57%',
         width: '125px',
         height: '125px',
         zIndex: 8
@@ -16,7 +16,7 @@ const styles = createStyles({
     house2Style: {
         position: 'absolute',
         left: '80%',
-        top: '82%',
+        top: '59%',
         width: '125px',
         height: '125px',
         zIndex: 8
@@ -24,7 +24,7 @@ const styles = createStyles({
     house3Style: {
         position: 'absolute',
         left: '77%',
-        top: '83%',
+        top: '55%',
         width: '125px',
         height: '125px',
         zIndex: 8

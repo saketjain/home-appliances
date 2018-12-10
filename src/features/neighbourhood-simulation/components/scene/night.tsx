@@ -34,7 +34,7 @@ class Night extends React.Component<INightProps, INightState> {
  
     private DURATION: number = 0.8;
 
-    private DELAY: number = 0;
+    private DELAY: number = 0.5;
 
     constructor(props: INightProps){
         super(props);
